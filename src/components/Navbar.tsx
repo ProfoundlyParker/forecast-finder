@@ -1,5 +1,6 @@
-import * as React from 'react';
 import { IoPartlySunny } from "react-icons/io5";
+import { MdMyLocation, MdLocationOn } from "react-icons/md";
+import { SearchBox } from "./SearchBox";
 
 type Props = {
 
@@ -13,6 +14,14 @@ export const Navbar: React.FC<Props> = (props) => {
                 <h2 className='text-gray-500 text-3xl'>Weather</h2>
                 <IoPartlySunny className='text-4xl mt-1 text-blue-400' />
             </p>
+            <section className='flex gap-2 items-center'>
+                <MdMyLocation className='text-2xl text-gray-400 hover:opacity-80 cursor-pointer'/>
+                <MdLocationOn className='text-3xl'/>
+                <p className='text-slate-900/80 text-sm'>Atlanta</p>
+                <div>
+                    <SearchBox />
+                </div>
+            </section>
         </div>
       </nav>
     );
