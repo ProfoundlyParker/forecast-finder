@@ -12,6 +12,7 @@ import { getDayOrNightIcon } from "@/utils/getDayOrNightIcon";
 import { WeatherDetails } from "@/components/WeatherDetails";
 import { meterstoFeet } from "@/utils/metersToFeet";
 import { convertWindSpeed } from "@/utils/convertWindSpeed";
+import { ForecastWeatherDetail } from "@/components/ForecastWeatherDetail";
 
 
 interface WeatherDetail {
@@ -83,6 +84,23 @@ const firstData = data?.list[0];
 useEffect(() => {
   console.log("data: ", data);
 }, [data]);
+
+const uniqueDates = [
+  ...new Set(
+    data?.list.map(
+      (entry) => new Date(entry.dt * 1000).toISOString().split("T")[0]
+    )
+  )
+];
+
+// filters data to get the first entry after 6 AM for each unique date
+const firstDataForEachDate = uniqueDates.map((date) => {
+  return data?.list.find((entry) => {
+    const entryDate = new Date(entry.dt * 1000).toISOString().split("T")[0];
+    const entryTime = new Date(entry.dt * 1000).getHours();
+    return entryDate === date && entryTime >= 6;
+  })
+})
 
   if (isPending) 
   return (
@@ -164,7 +182,25 @@ useEffect(() => {
             <p className="text-2xl">
               7 Day Forecast
             </p>
-
+            {firstDataForEachDate.map((d, i) => (
+              <ForecastWeatherDetail 
+              key={i}
+              description={d?.weather[0].description ?? ""}
+              weatherIcon={d?.weather[0].icon ?? "o1d"}
+              date={format(parseISO(d?.dt_txt ?? ""), "MM.dd")}
+              day={format(parseISO(d?.dt_txt ?? ""), "EEEE")}
+              feels_like={d?.main.feels_like ?? 0}
+              temp={d?.main.temp ?? 0}
+              temp_max={d?.main.temp_max ?? 0}
+              temp_min={d?.main.temp_min ?? 0}
+              airPressure={`${d?.main.pressure} hPa`}
+              humidity={`${d?.main.humidity}%`}
+              sunrise={format(fromUnixTime(data?.city.sunrise ?? 1706790868), "H:mm")}
+              sunset={format(fromUnixTime(data?.city.sunset ?? 1706828854), "H:mm")}
+              visibility={`${meterstoFeet(d?.visibility ?? 10000)}`}
+              windSpeed={`${convertWindSpeed(d?.wind.speed ?? 2.75)}`}
+              />
+            ))}
         </section>
 
       </main>
