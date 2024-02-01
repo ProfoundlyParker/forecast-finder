@@ -3,6 +3,7 @@ import { MdMyLocation, MdLocationOn } from "react-icons/md";
 import { SearchBox } from "./SearchBox";
 
 type Props = {
+    
 
 }
 
