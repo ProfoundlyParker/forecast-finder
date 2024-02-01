@@ -4,13 +4,14 @@ import { Navbar } from "@/components/Navbar";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect } from "react";
-import { format, parseISO } from "date-fns";
+import { format, fromUnixTime, parseISO } from "date-fns";
 import { Container } from "@/components/Container";
 import { convertKelvinToFahrenheit } from "@/utils/convertKelvinToFahrenheit";
 import { WeatherIcon } from "@/components/WeatherIcon";
 import { getDayOrNightIcon } from "@/utils/getDayOrNightIcon";
 import { WeatherDetails } from "@/components/WeatherDetails";
 import { meterstoFeet } from "@/utils/metersToFeet";
+import { convertWindSpeed } from "@/utils/convertWindSpeed";
 
 
 interface WeatherDetail {
@@ -149,7 +150,12 @@ useEffect(() => {
               {/* right */}
               <Container className="bg-blue-300/80 px-6 gap-4 justify-between overflow-x-auto">
                 <WeatherDetails visibility={meterstoFeet(firstData?.visibility ?? 10000)}
-                airPressure={`${firstData?.main.pressure} hPa`} />
+                airPressure={`${firstData?.main.pressure} hPa`}
+                humidity={`${firstData?.main.humidity}%`}
+                sunrise={format(fromUnixTime(data?.city.sunrise ?? 1706790868), "H:mm")} 
+                sunset={format(fromUnixTime(data?.city.sunset ?? 1706828854), "H:mm")} 
+                windSpeed={convertWindSpeed(firstData?.wind.speed ?? 2.15)}
+                />
               </Container>
           </div>
           </section>
