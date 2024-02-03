@@ -10,13 +10,13 @@ import { convertKelvinToFahrenheit } from "@/utils/convertKelvinToFahrenheit";
 import { WeatherIcon } from "@/components/WeatherIcon";
 import { getDayOrNightIcon } from "@/utils/getDayOrNightIcon";
 import { WeatherDetails } from "@/components/WeatherDetails";
-import { meterstoFeet } from "@/utils/metersToFeet";
+import { meterstoMiles } from "@/utils/metersToMiles";
 import { convertWindSpeed } from "@/utils/convertWindSpeed";
 import { ForecastWeatherDetail } from "@/components/ForecastWeatherDetail";
 import { useAtom } from "jotai";
 import { loadingCityAtom, placeAtom } from "./atom";
 
-
+// Defines the structure of the weatherdetails
 interface WeatherDetail {
   dt: number;
   main: {
@@ -51,7 +51,7 @@ interface WeatherDetail {
   };
   dt_txt: string;
 }
-
+// Defines the structure of weather data from API
 interface WeatherData {
   cod: string;
   message: number;
@@ -72,23 +72,27 @@ interface WeatherData {
   };
 }
 
-export default function Home() {
+// Fetches weather data from API, processes + displays it, handles loading states with React hooks and Jotai atoms + renders skeleton UI while data loads
+const Home = () => {
+  // Uses atoms from Jotai for managing global state for current place, and loading state of city data
   const [place, setPlace] = useAtom(placeAtom);
   const [loadingCity, ] = useAtom(loadingCityAtom);
+  // Uses useQuery hook from tanstack to fetch weather data from API
   const { isPending, error, data, refetch } = useQuery<WeatherData>({
     queryKey: ['repoData'],
     queryFn: async () => {
     const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`);
     return data;
 }});
-
+// Extracts the first data entry from the weather data list/array
 const firstData = data?.list[0];
 
+// Runs refetch to fetch updated weather data whenever the place atom or refetch function changes
 useEffect(() => {
   refetch();
 }, [place, refetch]);
 
-
+// Extracts unique dates from the weather data list
 const uniqueDates = [
   ...new Set(
     data?.list.map(
@@ -108,10 +112,12 @@ const firstDataForEachDate = uniqueDates.map((date) => {
 
   if (isPending) 
   return (
+    // Renders loading indicator if data is still pending
   <div className="flex items-center min-h-screen justify-center">
     <p className="animate-bounce">Loading...</p>
   </div>
   )
+  // Renders main content including navbar, today's weather data and 5 day forecast
   return (
     <div className="flex flex-col gap-4 bg-gray-100 min-h-screen">
       <Navbar location={data?.city.name} />
@@ -119,7 +125,7 @@ const firstDataForEachDate = uniqueDates.map((date) => {
         {loadingCity ? (
           <WeatherSkeleton />
         ) : (
-        // today data
+        // Renders today data
         <>
         <section className="space-y-4">
           <div className="space-y-2">
@@ -178,7 +184,7 @@ const firstDataForEachDate = uniqueDates.map((date) => {
                 </Container>
               {/* right */}
               <Container className="bg-blue-300/80 px-6 gap-4 justify-between overflow-x-auto">
-                <WeatherDetails visibility={meterstoFeet(firstData?.visibility ?? 10000)}
+                <WeatherDetails visibility={meterstoMiles(firstData?.visibility ?? 10000)}
                 airPressure={`${firstData?.main.pressure} hPa`}
                 humidity={`${firstData?.main.humidity}%`}
                 sunrise={format(fromUnixTime(data?.city.sunrise ?? 1706790868), "h:mm a")} 
@@ -208,7 +214,7 @@ const firstDataForEachDate = uniqueDates.map((date) => {
               humidity={`${d?.main.humidity}%`}
               sunrise={format(fromUnixTime(data?.city.sunrise ?? 1706790868), "h:mm a")}
               sunset={format(fromUnixTime(data?.city.sunset ?? 1706828854), "h:mm a")}
-              visibility={`${meterstoFeet(d?.visibility ?? 10000)}`}
+              visibility={`${meterstoMiles(d?.visibility ?? 10000)}`}
               windSpeed={`${convertWindSpeed(d?.wind.speed ?? 2.75)}`}
               />
             ))}
@@ -220,6 +226,7 @@ const firstDataForEachDate = uniqueDates.map((date) => {
   );
 }
 
+// Renders skeleton UI for weather data when loading
 const WeatherSkeleton = () => {
   return (
     <section className="space-y-8 ">
@@ -259,3 +266,5 @@ const WeatherSkeleton = () => {
     </section>
   );
 }
+
+export default Home;

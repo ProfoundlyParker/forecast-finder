@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { cn } from "@/utils/cn";
 
-
+// Function for displaying weather icons
 export const WeatherIcon = (props: React.HTMLProps<HTMLDivElement> & {iconName: string}) => {
     return (
         <div {...props} className={cn('relative h-20 w-20')}>

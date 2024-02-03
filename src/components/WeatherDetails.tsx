@@ -3,6 +3,7 @@ import { ImMeter } from "react-icons/im";
 import { IoWaterOutline } from "react-icons/io5";
 import { SlEye } from "react-icons/sl";
 
+// weather detail props types
 export interface WeatherDetailProps {
     visibility: string;
     humidity: string;
@@ -12,7 +13,9 @@ export interface WeatherDetailProps {
     sunset: string;
 }
 
+// Renders each weather component
 export const WeatherDetails = (props: WeatherDetailProps) => {
+    // default values
     const {
         visibility = "25km",
         humidity = "61%",
@@ -22,32 +25,38 @@ export const WeatherDetails = (props: WeatherDetailProps) => {
         sunset = "18:48",
     } = props;
     return (
+        // Visibility
         <>
         <SingleWeatherDetail
         icon={<SlEye />}
         information="Visibility"
         value={visibility}
          />
+         {/* Humidity */}
          <SingleWeatherDetail
         icon={<IoWaterOutline />}
         information="Humidity"
         value={humidity}
          />
+         {/* Wind speed */}
           <SingleWeatherDetail
         icon={<FiWind />}
         information="Wind Speed"
         value={windSpeed}
          />
+         {/* Air pressure */}
          <SingleWeatherDetail
         icon={<ImMeter />}
         information="Air Pressure"
         value={airPressure}
          />
+         {/* Sunrise */}
          <SingleWeatherDetail
         icon={<FiSunrise />}
         information="Sunrise"
         value={sunrise}
          />
+         {/* Sunset */}
          <SingleWeatherDetail
          icon={<FiSunset />}
          information="Sunset"
@@ -57,12 +66,14 @@ export const WeatherDetails = (props: WeatherDetailProps) => {
     )
 };
 
+// single weather detail props
 export interface SingleWeatherDetailProps {
     information: string;
     icon: React.ReactNode;
     value: string;
 }
 
+// Renders a single weather detail (info, icon, and value)
 const SingleWeatherDetail = (props: SingleWeatherDetailProps) => {
     return (
         <div className="flex flex-col justify-between gap-2 items-center text-xs font-semibold text-black/80">

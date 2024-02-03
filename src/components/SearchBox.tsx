@@ -2,6 +2,7 @@ import { cn } from '@/utils/cn';
 import { useState } from 'react';
 import { HiSearch } from "react-icons/hi";
 
+// SearchBox component props
 type Props = {
     className?: string;
     value: string;
@@ -10,13 +11,16 @@ type Props = {
 }
 
 export const SearchBox: React.FC<Props> = (props: Props) => {
+    // Initializes searchbox value with empty string
     const [searchValue, setSearchValue] = useState('');
+    // Clears search box after submitting + allows enter key to submit form
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         props.onSubmit?.(event);
         setSearchValue('');
     }
     return (
+        // Displays search form
         <form onSubmit={handleSubmit}
         className={cn(
             "flex relative items-center justify-center h-10 ",
