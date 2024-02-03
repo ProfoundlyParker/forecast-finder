@@ -3,7 +3,7 @@
 import { Navbar } from "@/components/Navbar";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { format, fromUnixTime, parseISO } from "date-fns";
 import { Container } from "@/components/Container";
 import { convertKelvinToFahrenheit } from "@/utils/convertKelvinToFahrenheit";
@@ -78,7 +78,6 @@ export default function Home() {
   const { isPending, error, data, refetch } = useQuery<WeatherData>({
     queryKey: ['repoData'],
     queryFn: async () => {
-      // console.log("Weather API key: ", process.env.NEXT_PUBLIC_WEATHER_KEY)
     const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`);
     return data;
 }});
@@ -88,6 +87,7 @@ const firstData = data?.list[0];
 useEffect(() => {
   refetch();
 }, [place, refetch]);
+
 
 const uniqueDates = [
   ...new Set(
@@ -119,7 +119,7 @@ const firstDataForEachDate = uniqueDates.map((date) => {
         {loadingCity ? (
           <WeatherSkeleton />
         ) : (
-        // {/* today data */}
+        // today data
         <>
         <section className="space-y-4">
           <div className="space-y-2">
@@ -160,6 +160,9 @@ const firstDataForEachDate = uniqueDates.map((date) => {
                   </p>
                   <WeatherIcon iconName={getDayOrNightIcon(d.weather[0].icon, d.dt_txt)}/>
                   <p>
+                  {format(parseISO(d?.dt_txt ?? ''), 'EEEE')}
+                  </p>
+                  <p>
                     {convertKelvinToFahrenheit(d?.main.temp ?? 287.72)}°
                   </p>
                 </div>
@@ -178,17 +181,17 @@ const firstDataForEachDate = uniqueDates.map((date) => {
                 <WeatherDetails visibility={meterstoFeet(firstData?.visibility ?? 10000)}
                 airPressure={`${firstData?.main.pressure} hPa`}
                 humidity={`${firstData?.main.humidity}%`}
-                sunrise={format(fromUnixTime(data?.city.sunrise ?? 1706790868), "H:mm")} 
-                sunset={format(fromUnixTime(data?.city.sunset ?? 1706828854), "H:mm")} 
+                sunrise={format(fromUnixTime(data?.city.sunrise ?? 1706790868), "h:mm a")} 
+                sunset={format(fromUnixTime(data?.city.sunset ?? 1706828854), "h:mm a")} 
                 windSpeed={convertWindSpeed(firstData?.wind.speed ?? 2.15)}
                 />
               </Container>
           </div>
           </section>
-        {/* 7 day forecast data */}
-        <section className="flex w-full flex-col gap-4">
+        {/* 5 day forecast data */}
+        <section className="flex w-full flex-col gap-4 whitespace-nowrap">
             <p className="text-2xl">
-              7 Day Forecast
+              5 Day Forecast
             </p>
             {firstDataForEachDate.map((d, i) => (
               <ForecastWeatherDetail 
@@ -203,8 +206,8 @@ const firstDataForEachDate = uniqueDates.map((date) => {
               temp_min={d?.main.temp_min ?? 0}
               airPressure={`${d?.main.pressure} hPa`}
               humidity={`${d?.main.humidity}%`}
-              sunrise={format(fromUnixTime(data?.city.sunrise ?? 1706790868), "H:mm")}
-              sunset={format(fromUnixTime(data?.city.sunset ?? 1706828854), "H:mm")}
+              sunrise={format(fromUnixTime(data?.city.sunrise ?? 1706790868), "h:mm a")}
+              sunset={format(fromUnixTime(data?.city.sunset ?? 1706828854), "h:mm a")}
               visibility={`${meterstoFeet(d?.visibility ?? 10000)}`}
               windSpeed={`${convertWindSpeed(d?.wind.speed ?? 2.75)}`}
               />
@@ -240,7 +243,7 @@ const WeatherSkeleton = () => {
         </div>
       </div>
 
-      {/* 7 days forecast skeleton */}
+      {/* 5 days forecast skeleton */}
       <div className="flex flex-col gap-4 animate-pulse">
         <p className="text-2xl h-8 w-36 bg-gray-300 rounded"></p>
 
