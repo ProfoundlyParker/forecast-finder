@@ -15,6 +15,7 @@ import { convertWindSpeed } from "@/utils/convertWindSpeed";
 import { ForecastWeatherDetail } from "@/components/ForecastWeatherDetail";
 import { useAtom } from "jotai";
 import { loadingCityAtom, placeAtom } from "./atom";
+import { Footer } from "@/components/Footer";
 
 // Defines the structure of the weatherdetails
 interface WeatherDetail {
@@ -218,6 +219,9 @@ const firstDataForEachDate = uniqueDates.map((date) => {
               windSpeed={`${convertWindSpeed(d?.wind.speed ?? 2.75)}`}
               />
             ))}
+        </section>
+        <section>
+          <Footer />
         </section>
         </>
         )}
