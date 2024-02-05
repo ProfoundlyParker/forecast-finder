@@ -135,7 +135,7 @@ export const Navbar = ({ location }: Props) => {
         </div>
       </nav>
       {/* Contains mobile view of search input and suggestion box */}
-      <section className="flex flex-col items-center max-w-7xl px-3 md:hidden">
+      <section className={`${darkMode ? 'text-white' : 'text-black'} flex flex-col items-center max-w-7xl px-3 md:hidden`}>
       <div className="relative">
                     <SearchBox 
                     value={city}
@@ -164,9 +164,11 @@ const SuggestionBox = ({ showSuggestions, suggestions, handleSuggestionClick, er
       handleSuggestionClick: (item: string) => void;
       error: string;
         }) => {
+    // creates access to darkMode for custom darkMode styling
+    const [darkMode] = useDarkMode();
     return ( 
     <>{((showSuggestions && suggestions.length > 1) || error) && (
-    <ul className="mb-4 bg-white absolute border top-[44px] left-0 border-gray-300 rounded-md min-w-[200px] flex flex-col gap-1 py-2 px-2">
+    <ul className={`${darkMode ? 'bg-gray-700 border-gray-700' : 'bg-white'} mb-4 absolute border top-[44px] left-0 rounded-md min-w-[200px] flex flex-col gap-1 py-2 px-2`}>
         {/* Renders error message if no suggestions */}
         {error && suggestions.length < 1 && ( 
         <li className="text-red-500 p-1">{error}</li>
@@ -176,7 +178,7 @@ const SuggestionBox = ({ showSuggestions, suggestions, handleSuggestionClick, er
         <li
         key={i}
         onClick={() => handleSuggestionClick(item)}
-        className="cursor-pointer p-1 rounded hover:bg-gray-200"
+        className={`${darkMode ? 'text-white hover:bg-gray-400' : 'text-black hover:bg-gray-300'} cursor-pointer p-1 rounded`}
         >{item}</li>
     ))}
         <li className="cursor-pointer p-1 rounded hover:bg-gray-200"></li>
