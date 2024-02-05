@@ -192,7 +192,7 @@ const firstDataForEachDate = uniqueDates.map((date) => {
                   <WeatherIcon iconName={getDayOrNightIcon(firstData?.weather[0].icon ?? "", firstData?.dt_txt ?? "")}/>
                 </Container>
               {/* right today container */}
-              <Container className={`${darkMode ? 'bg-sky-400/70 border-sky-400/70' : 'bg-sky-300/80'} px-6 gap-4 justify-between overflow-x-auto`}>
+              <Container className="bg-sky-300/80 border-sky-300/80 px-6 gap-4 justify-between overflow-x-auto">
                 <WeatherDetails visibility={meterstoMiles(firstData?.visibility ?? 10000)}
                 airPressure={`${firstData?.main.pressure} hPa`}
                 humidity={`${firstData?.main.humidity}%`}
