@@ -3,10 +3,12 @@
 import { IoPartlySunny } from "react-icons/io5";
 import { MdMyLocation, MdLocationOn } from "react-icons/md";
 import { SearchBox } from "./SearchBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAtom } from "jotai";
-import { loadingCityAtom, placeAtom } from "@/app/atom";
+import { loadingCityAtom, placeAtom, useDarkMode } from "@/app/atom";
+import { useTheme } from "next-themes";
+import { ThemeSwitch } from "./ThemeSwitch";
 
 // Navbar props
 type Props = { location?: string };
@@ -25,6 +27,9 @@ export const Navbar = ({ location }: Props) => {
     const [place, setPlace] = useAtom(placeAtom);
     // Uses destructuring to ignore first tuple element, and get the setLoadingCity function to update the atom's value
     const [_, setLoadingCity] = useAtom(loadingCityAtom);
+    // creates access to darkMode for custom darkMode styling
+    const [darkMode] = useDarkMode();
+
     // Handles changes in the search input field
     const handleInputChange = async (value: string) => {
         setCity(value);
@@ -94,21 +99,22 @@ export const Navbar = ({ location }: Props) => {
 
     return (
     <>
-      <nav className="shadow-sm sticky top-0 left-0 z-50 bg-white">
+      <nav className={`${darkMode ? 'bg-gray-800/80' : 'bg-white text-black'} shadow-sm sticky top-0 left-0 z-50`}>
         <div className='h-[80px] w-full flex justify-between items-center max-w-7xl px-3 mx-auto'>
             <p className='flex items-center justify-center gap-2'>
                 {/* Weather App Title */}
-                <h2 className='text-gray-500 text-3xl'>Weather</h2>
-                <IoPartlySunny className='text-4xl mt-1 text-blue-400' />
+                <h2 className={`${darkMode ? 'text-white' : 'text-gray-500'} text-3xl`}>Weather</h2>
+                <IoPartlySunny className='text-4xl mt-1 text-sky-500' />
             </p>
             <section className='flex gap-2 items-center'>
+                <ThemeSwitch />
                 {/* Retrieves user's current location when icon is clicked */}
                 <MdMyLocation title="Your Current Location"
                 onClick={handleCurrentLocation}
                 className='text-2xl text-gray-400 hover:opacity-80 cursor-pointer'/>
                 {/* Displays location and icon and updates location name based on selected location */}
-                <MdLocationOn className='text-3xl'/>
-                <p className='text-slate-900/80 text-sm'>{location}</p>
+                <MdLocationOn className={`${darkMode ? 'text-white' : 'text-black'} text-3xl`}/>
+                <p className={`${darkMode ? 'text-white' : 'text-slate-900/80'} text-sm`}>{location}</p>
                 <div className="relative hidden md:flex">
                     <SearchBox 
                     value={city}

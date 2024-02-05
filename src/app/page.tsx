@@ -14,8 +14,10 @@ import { meterstoMiles } from "@/utils/metersToMiles";
 import { convertWindSpeed } from "@/utils/convertWindSpeed";
 import { ForecastWeatherDetail } from "@/components/ForecastWeatherDetail";
 import { useAtom } from "jotai";
-import { loadingCityAtom, placeAtom } from "./atom";
+import { loadingCityAtom, placeAtom, useDarkMode } from "./atom";
 import { Footer } from "@/components/Footer";
+import { ThemeProvider } from "next-themes";
+import { ThemeSwitch } from "@/components/ThemeSwitch";
 
 // Defines the structure of the weatherdetails
 interface WeatherDetail {
@@ -87,6 +89,10 @@ const Home = () => {
 }});
 // Extracts the first data entry from the weather data list/array
 const firstData = data?.list[0];
+// creates access to darkMode for custom darkMode styling
+const [darkMode] = useDarkMode();
+// allows for scrollbar to toggle between light and dark mode
+const modeClass = darkMode ? 'dark-mode' : 'light-mode';
 
 // Runs refetch to fetch updated weather data whenever the place atom or refetch function changes
 useEffect(() => {
@@ -120,7 +126,9 @@ const firstDataForEachDate = uniqueDates.map((date) => {
   )
   // Renders main content including navbar, today's weather data and 5 day forecast
   return (
-    <div className="flex flex-col gap-4 bg-gray-100 min-h-screen">
+    <div className={modeClass}>
+    <ThemeProvider attribute="class">
+    <div className={`${darkMode ? 'bg-slate-600' : 'bg-gray-100'} flex flex-col gap-4 min-h-screen`}>
       <Navbar location={data?.city.name} />
       <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4">
         {loadingCity ? (
@@ -130,7 +138,7 @@ const firstDataForEachDate = uniqueDates.map((date) => {
         <>
         <section className="space-y-4">
           <div className="space-y-2">
-          <h2 className="flex gap-1 text-2xl items-end">
+          <h2 className={`${darkMode ? 'text-gray-100' : 'text-black'} flex gap-1 text-2xl items-end`}>
             <p> {format(parseISO(firstData?.dt_txt ?? ''), 'EEEE')} </p>
             <p className="text-lg"> ({format(parseISO(firstData?.dt_txt ?? ''), 'MM.dd.yyyy')}) </p>
           </h2>
@@ -178,13 +186,13 @@ const firstDataForEachDate = uniqueDates.map((date) => {
           </Container>
           </div>
           <div className="flex gap-4">
-              {/* left */}
+              {/* left description container */}
                 <Container className="w-fit justify-center flex-col px-4 items-center">
                   <p className="capitalize text-center">{firstData?.weather[0].description}</p>
                   <WeatherIcon iconName={getDayOrNightIcon(firstData?.weather[0].icon ?? "", firstData?.dt_txt ?? "")}/>
                 </Container>
-              {/* right */}
-              <Container className="bg-blue-300/80 px-6 gap-4 justify-between overflow-x-auto">
+              {/* right today container */}
+              <Container className={`${darkMode ? 'bg-sky-400/70 border-sky-400/70' : 'bg-sky-300/80'} px-6 gap-4 justify-between overflow-x-auto`}>
                 <WeatherDetails visibility={meterstoMiles(firstData?.visibility ?? 10000)}
                 airPressure={`${firstData?.main.pressure} hPa`}
                 humidity={`${firstData?.main.humidity}%`}
@@ -197,7 +205,7 @@ const firstDataForEachDate = uniqueDates.map((date) => {
           </section>
         {/* 5 day forecast data */}
         <section className="flex w-full flex-col gap-4 whitespace-nowrap">
-            <p className="text-2xl">
+            <p className={`${darkMode ? 'text-gray-100' : 'text-black'} text-2xl`}>
               5 Day Forecast
             </p>
             {firstDataForEachDate.map((d, i) => (
@@ -226,6 +234,8 @@ const firstDataForEachDate = uniqueDates.map((date) => {
         </>
         )}
       </main>
+    </div>
+    </ThemeProvider>
     </div>
   );
 }

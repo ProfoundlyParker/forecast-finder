@@ -37,7 +37,7 @@ export const ForecastWeatherDetail = (props: ForecastWeatherDetailProps) => {
                     <p className="text-sm">{day}</p>
                 </div>
                 {/* Displays current temp and feels like temp, and current weather description */}
-                <div className="flex flex-col px-4">
+                <div className="flex flex-col px-2">
                     <span className="text-5xl">{convertKelvinToFahrenheit(temp ?? 0)}°</span>
                     <p className="text-xs space-x-1 whitespace-nowrap">
                         <span>Feels like</span>

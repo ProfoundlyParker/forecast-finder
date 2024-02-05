@@ -1,3 +1,4 @@
+import { useDarkMode } from '@/app/atom';
 import { cn } from '@/utils/cn';
 import { useState } from 'react';
 import { HiSearch } from "react-icons/hi";
@@ -13,6 +14,8 @@ type Props = {
 export const SearchBox: React.FC<Props> = (props: Props) => {
     // Initializes searchbox value with empty string
     const [searchValue, setSearchValue] = useState('');
+    // creates access to darkMode for custom darkMode styling
+    const [darkMode] = useDarkMode();
     // Clears search box after submitting + allows enter key to submit form
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -34,8 +37,8 @@ export const SearchBox: React.FC<Props> = (props: Props) => {
                 props.onChange?.(e);
             }} 
             placeholder="Search location" 
-            className="px-4 py-2 w-[230px] border border-gray-300 rounded-l-md focus:outline-none focus:border-blue-500 h-full"/>
-            <button type="submit" className="px-4 py-[9px] bg-blue-500 text-white rounded-r-md focus:outline-none hover:bg-blue-600 h-full">
+            className={`${darkMode ? 'bg-gray-500 border-gray-500' : 'bg-white'} px-4 py-2 w-[230px] border border-gray-300 rounded-l-md focus:outline-none focus:border-blue-500 h-full`}/>
+            <button type="submit" className={`${darkMode ? 'bg-sky-600 hover:bg-sky-700' : 'bg-sky-500 hover:bg-sky-600'} px-4 py-[9px] text-white rounded-r-md focus:outline-none h-full`}>
              <HiSearch />
             </button>
         </form>

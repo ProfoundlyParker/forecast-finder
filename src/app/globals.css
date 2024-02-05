@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Light mode scrollbar styles */
+.light-mode ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.light-mode ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+.light-mode ::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 5px;
+}
+
+.light-mode ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Dark mode scrollbar styles */
+.dark-mode ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+    background: #cecdcd;
+    border-radius: 5px;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 5px;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

@@ -1,5 +1,6 @@
-import { FiSunrise, FiSunset, FiWind } from "react-icons/fi";
-import { ImMeter } from "react-icons/im";
+import { FiSunrise, FiSunset } from "react-icons/fi";
+import { SlSpeedometer } from "react-icons/sl";
+import { BsWind } from "react-icons/bs";
 import { IoWaterOutline } from "react-icons/io5";
 import { SlEye } from "react-icons/sl";
 
@@ -39,14 +40,14 @@ export const WeatherDetails = (props: WeatherDetailProps) => {
         value={humidity}
          />
          {/* Wind speed */}
-          <SingleWeatherDetail
-        icon={<FiWind />}
+         <SingleWeatherDetail
+        icon={<BsWind />}
         information="Wind Speed"
         value={windSpeed}
          />
          {/* Air pressure */}
          <SingleWeatherDetail
-        icon={<ImMeter />}
+        icon={<SlSpeedometer />}
         information="Air Pressure"
         value={airPressure}
          />
