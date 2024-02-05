@@ -7,7 +7,7 @@ export const Container = (props: React.HTMLProps<HTMLDivElement>) => {
     const [darkMode] = useDarkMode();
     return (
         <div {...props} 
-        className = {cn(`${darkMode ? 'bg-gray-400 border-gray-400' : 'bg-white'} w-full border rounded-xl flex py-4 shadow-sm`,
+        className = {cn(`${darkMode ? 'bg-gray-400 border-gray-400' : 'bg-white'} w-full border rounded-xl flex py-4 shadow-sm text-black`,
         props.className)}
         />
     )
