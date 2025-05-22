@@ -7,7 +7,7 @@ export const Footer = () => {
     // creates access to darkMode for custom darkMode styling
     const [darkMode] = useDarkMode();
     return (
-    <div className={`${darkMode ? 'text-gray-100' : 'text-black'} items-center justify-center flex`}>
+    <div className={`${darkMode ? 'text-gray-100' : 'text-gray-100'} items-center justify-center flex`}>
     <Link className="text-xl flex items-center"
     href={"https://github.com/ProfoundlyParker/weather-app"}>
         <span className="pr-2">

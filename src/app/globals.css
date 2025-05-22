@@ -2,42 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Light mode scrollbar styles */
-.light-mode ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+/* Light mode scrollbar styles for .scrollbar-hover */
+.light-mode .scrollbar-hover::-webkit-scrollbar {
+  height: 10px;
+  background: #f1f1f1;
+}
+.light-mode .scrollbar-hover::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+.light-mode .scrollbar-hover:hover::-webkit-scrollbar-thumb {
+  background: #999;
 }
 
-.light-mode ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 5px;
+/* Dark mode scrollbar styles for .scrollbar-hover */
+.dark-mode .scrollbar-hover::-webkit-scrollbar {
+  height: 10px;
+  background: #cecdcd;
+}
+.dark-mode .scrollbar-hover::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+.dark-mode .scrollbar-hover:hover::-webkit-scrollbar-thumb {
+  background: #444;
 }
 
-.light-mode ::-webkit-scrollbar-thumb {
-    background: #999;
-    border-radius: 5px;
+/* Firefox support */
+.scrollbar-hover {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s;
 }
-
-.light-mode ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+.scrollbar-hover:hover {
+  scrollbar-color: #999 #f1f1f1; /* light mode colors by default */
 }
-
-/* Dark mode scrollbar styles */
-.dark-mode ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-.dark-mode ::-webkit-scrollbar-track {
-    background: #cecdcd;
-    border-radius: 5px;
-}
-
-.dark-mode ::-webkit-scrollbar-thumb {
-    background: #444;
-    border-radius: 5px;
-}
-
-.dark-mode ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+.dark-mode .scrollbar-hover:hover {
+  scrollbar-color: #555 #cecdcd;
 }

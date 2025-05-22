@@ -1,4 +1,4 @@
-<h1 align='center'>Weather App<br>
+<h1 align='center'>Forecast Finder<br>
 Live Site: https://weather-app-murex-gamma.vercel.app/
 </h1>
 
@@ -11,7 +11,6 @@ Live Site: https://weather-app-murex-gamma.vercel.app/
 <p>I also added a dark mode toggle feature with custom stylings for dark mode vs light mode.</p>
 
 <p>Possible Future Improvements:</p>
-<li>Timezone updates depending on location selected</li>
 <li>Letting user control whether measurements are metric or imperial</li>
 
 
@@ -51,6 +50,6 @@ Live Site: https://weather-app-murex-gamma.vercel.app/
 <li>Custom site favicon
 </li>
 <br>
-<img src='src/app/favicon.ico' height='200' width='200'>
+<img src='public/favicon.ico' height='200' width='200'>
 
 

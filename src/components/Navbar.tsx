@@ -9,6 +9,7 @@ import { useAtom } from "jotai";
 import { loadingCityAtom, placeAtom, useDarkMode } from "@/app/atom";
 import { useTheme } from "next-themes";
 import { ThemeSwitch } from "./ThemeSwitch";
+import Image from "next/image";
 
 // Navbar props
 type Props = { location?: string };
@@ -52,9 +53,14 @@ export const Navbar = ({ location }: Props) => {
         }
     }
     // When a user selects a suggestion, this function sets the city state to selected suggestion
-    const handleSuggestionClick = (value: string) => {
-        setCity(value);
+   const handleSuggestionClick = (value: string) => {
         setShowSuggestions(false);
+        setLoadingCity(true);
+        setPlace(value);
+        setCity("");
+        setTimeout(() => {
+            setLoadingCity(false);
+        }, 500);
     }
     // Called when the user submits the search form
     const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -71,6 +77,7 @@ export const Navbar = ({ location }: Props) => {
                 setLoadingCity(false);
                 setPlace(city);
                 setShowSuggestions(false);
+                setCity("");
             }, 500)
         }
     }
@@ -103,17 +110,17 @@ export const Navbar = ({ location }: Props) => {
         <div className='h-[80px] w-full flex justify-between items-center max-w-7xl px-3 mx-auto'>
             <p className='flex items-center justify-center gap-2'>
                 {/* Weather App Title */}
-                <h2 className={`${darkMode ? 'text-white' : 'text-gray-500'} text-3xl`}>Weather</h2>
-                <IoPartlySunny className='text-4xl mt-1 text-sky-500' />
+                <Image src="/favicon.ico" alt="logo" className='rounded-full' width={40} height={40} />
+                <h2 className={`${darkMode ? 'text-white' : 'text-gray-500'} text-3xl`}>Forecast Finder</h2>
             </p>
             <section className='flex gap-2 items-center'>
                 <ThemeSwitch />
                 {/* Retrieves user's current location when icon is clicked */}
                 <MdMyLocation title="Your Current Location"
                 onClick={handleCurrentLocation}
-                className='text-2xl text-gray-400 hover:opacity-80 cursor-pointer'/>
+                className='text-2xl text-gray-400 hover:opacity-80 cursor-pointer relative -right-2'/>
                 {/* Displays location and icon and updates location name based on selected location */}
-                <MdLocationOn className={`${darkMode ? 'text-white' : 'text-black'} text-3xl`}/>
+                <MdLocationOn className={`${darkMode ? 'text-white' : 'text-black'} text-3xl gap-0 relative -right-2`}/>
                 <p className={`${darkMode ? 'text-white' : 'text-slate-900/80'} text-sm`}>{location}</p>
                 <div className="relative hidden md:flex">
                     <SearchBox 

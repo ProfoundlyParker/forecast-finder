@@ -37,8 +37,8 @@ export const SearchBox: React.FC<Props> = (props: Props) => {
                 props.onChange?.(e);
             }} 
             placeholder="Search location" 
-            className={`${darkMode ? 'bg-gray-500 border-gray-500' : 'bg-white'} px-4 py-2 w-[230px] border border-gray-300 rounded-l-md focus:outline-none focus:border-blue-500 h-full`}/>
-            <button type="submit" className={`${darkMode ? 'bg-sky-600 hover:bg-sky-700' : 'bg-sky-500 hover:bg-sky-600'} px-4 py-[9px] text-white rounded-r-md focus:outline-none h-full`}>
+            className={`${darkMode ? 'bg-slate-300/70 border-slate-300/70' : 'bg-white'} placeholder-gray-900 px-4 py-2 w-[230px] border rounded-l-md focus:outline-none focus:border-blue-500 h-full`}/>
+            <button type="submit" className={`${darkMode ? 'bg-sky-600 hover:bg-sky-700' : 'bg-sky-400 hover:bg-sky-500'} px-4 py-[9px] text-white rounded-r-md focus:outline-none h-full`}>
              <HiSearch />
             </button>
         </form>

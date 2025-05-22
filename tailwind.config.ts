@@ -9,6 +9,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        darkBlue: "#0e58b1",
+        lightBlue: '#309ce5',
+        darkModeDarkBlue: '#012c5e',
+        darkModeLightBlue: '#1d6799'
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

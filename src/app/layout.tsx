@@ -1,6 +1,6 @@
 'use client'
 
-import { Inter } from "next/font/google";
+import { Figtree } from "next/font/google";
 import "./globals.css";
 import {
   QueryClient,
@@ -8,7 +8,11 @@ import {
   useQuery,
 } from '@tanstack/react-query'
 
-const inter = Inter({ subsets: ["latin"] });
+const figtree = Figtree({
+  style: "normal",
+  weight: "400",
+  subsets: ["latin"]
+});
 
 
 export default function RootLayout({
@@ -21,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <QueryClientProvider client={queryClient}>
-        <body className={inter.className}>{children}</body>
+        <body className={figtree.className}>{children}</body>
       </QueryClientProvider>
     </html>
   );
