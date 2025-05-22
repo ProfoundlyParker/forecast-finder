@@ -1,9 +1,8 @@
 "use client"
 
-import { IoPartlySunny } from "react-icons/io5";
 import { MdMyLocation, MdLocationOn } from "react-icons/md";
 import { SearchBox } from "./SearchBox";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useAtom } from "jotai";
 import { loadingCityAtom, placeAtom, useDarkMode } from "@/app/atom";

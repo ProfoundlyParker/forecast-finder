@@ -3,7 +3,7 @@
 import { Navbar } from "@/components/Navbar";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { format, fromUnixTime, parseISO } from "date-fns";
 import tzLookup from "tz-lookup";
 import { Container } from "@/components/Container";

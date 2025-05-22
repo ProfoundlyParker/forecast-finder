@@ -4,8 +4,7 @@ import { Figtree } from "next/font/google";
 import "./globals.css";
 import {
   QueryClient,
-  QueryClientProvider,
-  useQuery,
+  QueryClientProvider
 } from '@tanstack/react-query'
 
 const figtree = Figtree({
