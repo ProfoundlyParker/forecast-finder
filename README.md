@@ -60,5 +60,4 @@ Live Site: https://weather-app-murex-gamma.vercel.app/
 <img src='public/favicon.ico' height='200' width='200'>
 
 ## Possible Future Improvements:
-<li>Time zone updates depending on location selected</li>
 <li>Letting user control whether measurements are metric or imperial</li>
