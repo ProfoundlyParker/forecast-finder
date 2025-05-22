@@ -5,7 +5,7 @@ Live Site: https://weather-app-murex-gamma.vercel.app/
 ![main-app](readme-imgs/main-app-ezgif.com-optimize.gif)
 
 ## Description
-<p>A Next.js app that displays weather data based on the selected location. Built with <strong>Next.js</strong>, <strong>React</strong>, <strong>TypeScript</strong>, <strong>React hooks</strong>, <strong>Tailwind CSS</strong>, <strong>Axios</strong>, <strong>Jotai</strong>, <strong>Date-fns</strong>, <strong>Clsx</strong>, <strong>Tanstack/react-query</strong>, <strong>OpenWeatherMap API</strong>, and deployed on <strong>Vercel</strong></p>
+<p>A Next.js app that displays weather data based on the selected location. Built with <strong>Next.js</strong>, <strong>React</strong>, <strong>TypeScript</strong>, <strong>React hooks</strong>, <strong>Tailwind CSS</strong>, <strong>Axios</strong>, <strong>Jotai</strong>, <strong>Date-fns</strong>, <strong>Clsx</strong>, <strong>Tanstack/react-query</strong>, <strong>tz-lookup</strong>, <strong>OpenWeatherMap API</strong>, and deployed on <strong>Vercel</strong></p>
 <p>I also added a dark mode toggle feature with custom stylings for dark mode vs light mode</p>
 
 
@@ -25,11 +25,23 @@ Live Site: https://weather-app-murex-gamma.vercel.app/
 <li>Skeleton app loads when requesting new data
 </li>
 <br>
-<img src='readme-imgs/location-toggle.gif' width='777'>
+<img src='readme-imgs/skeleton-view.gif' width='777'>
+<li>Times shown update based on selected location's timezone
+</li>
+<br>
+<img src='readme-imgs/location-toggle-search.gif' width='777'>
 <li>Dark mode vs light mode toggle option
 </li>
 <br>
 <img src='readme-imgs/dark-mode-ezgif.com-optimize.gif' width='777'>
+<li>Scale on hover for 5 day forecast
+</li>
+<br>
+<img src='readme-imgs/hover-scale.gif' width='777'>
+<li>Scrollbars appear on hover
+</li>
+<br>
+<img src='readme-imgs/scrollbar-hover.gif' width='777'>
 <li>Error message displays if location is not found
 </li>
 <br>
