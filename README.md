@@ -26,7 +26,7 @@ Live Site: https://weather-app-murex-gamma.vercel.app/
 </li>
 <br>
 <img src='readme-imgs/skeleton-view.gif' width='777'>
-<li>Times shown update based on selected location's timezone
+<li>Times shown updates based on selected location's timezone
 </li>
 <br>
 <img src='readme-imgs/location-toggle-search.gif' width='777'>
